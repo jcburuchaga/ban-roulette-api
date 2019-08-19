@@ -1,34 +1,38 @@
 const express = require('express'); 
 const  jwt  =  require('jsonwebtoken');
-
+const userService = require('../service/userService'); 
 const SECRET_KEY = "998m7nu6by5vt45bv4c4vtby";
 
 const router = express.Router();
-
-router.get('/signup', (req, res) => { 
-  
-    res.status(200).send("ok"); 
+ 
+router.post('/signup', async (req, res) => { 
+    const  email  =  req.body.email;
+    const  password  =  req.body.password; 
+    let user = await userService.createUser(email,password,0);
+    if (user) {
+      const  expiresIn  =  24  *  60  *  60;
+      const  accessToken  =  jwt.sign({ id:  email }, SECRET_KEY, {
+          expiresIn:  expiresIn
+      });
+      res.status(200).send({ "access_token":  accessToken }); 
+    }else{
+      res.status(404).send("user/password invalid");
+    }
 });
 
-router.post('/signup', (req, res) => { 
-    const  email  =  req.body.email;
-    const  password  =  req.body.password;
- 
+router.post('/signin', (req, res) => {
+  const  email  =  req.body.email;
+  const  password  =  req.body.password; 
+  let user = await userService.getUserByEmail(email);
+  if (user.password == password) {
     const  expiresIn  =  24  *  60  *  60;
     const  accessToken  =  jwt.sign({ id:  email }, SECRET_KEY, {
         expiresIn:  expiresIn
     });
     res.status(200).send({ "access_token":  accessToken }); 
-});
-
-router.post('/signin', (req, res) => {
-    const  email  =  req.body.email;
-    const  password  =  req.body.password; 
-    const  expiresIn  =  24  *  60  *  60;
-    const  accessToken  =  jwt.sign({ id:  email }, SECRET_KEY, {
-        expiresIn:  expiresIn
-    }); 
-    res.status(200).send({ "access_token":  accessToken});
+  }else{
+    res.status(404).send("user/password invalid");
+  }
 });
  
 router.post('/check_token', (req, res) => {
