@@ -17,7 +17,7 @@ createBet = async (user_id,hash_client,hash_server,result,amount,bet,tx_hash,sta
 
 getBetById = async (idx) =>{
     return new Promise((resolve, reject) => {
-        Bets.findAll({raw: true, where: {            
+        Bets.findOne({raw: true, where: {            
             idx : idx        
           }})
         .then((data) => { 
@@ -28,9 +28,21 @@ getBetById = async (idx) =>{
     });
 }
 
-getBetByClientHash = async (hash) =>{
+getBetsByUser = async (user_id) =>{
     return new Promise((resolve, reject) => {
         Bets.findAll({raw: true, where: {            
+            user_id : user_id        
+          }})
+        .then((data) => { 
+            resolve(data);
+        }).catch(error => { 
+            reject(error);
+        }); 
+    });
+}
+getBetByClientHash = async (hash) =>{
+    return new Promise((resolve, reject) => {
+        Bets.findOne({raw: true, where: {            
             hash_client : hash        
           }})
         .then((data) => { 
@@ -59,5 +71,8 @@ module.exports = {
     getBetById: getBetById,
     getBetByClientHash : getBetByClientHash,
     roll : roll,
+    getSHA256 : getSHA256,
+    getRandomHash: getRandomHash,
+    getBetsByUser: getBetsByUser
 
 }

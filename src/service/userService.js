@@ -17,7 +17,7 @@ createUser = async (ban_address,password,balance) =>{
 
 getUserById = async (idx) =>{
     return new Promise((resolve, reject) => {
-        User.findAll({raw: true, where: {            
+        User.findOne({raw: true, where: {            
             idx : idx,
             enabled : '1'          
           }})
@@ -31,7 +31,7 @@ getUserById = async (idx) =>{
 
 getUserByEmail = async (email) =>{
     return new Promise((resolve, reject) => {
-        User.findAll({raw: true, where: {            
+        User.findOne({raw: true, where: {            
             email : email,
             enabled : '1'          
           }})
