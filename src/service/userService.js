@@ -5,7 +5,7 @@ createUser = async (ban_address,password,balance) =>{
     let { wallet, seed } = await bananojs.createWallet();
     let account = await bananojs.createAccount(wallet); 
     return new Promise((resolve, reject) => {
-        User.create({ban_address: ban_address, password:password, enabled:'1',
+        User.create({email: ban_address, password:password, enabled:'1',
             address:account, pk:seed, wallet: wallet, balance:balance})
         .then((data) => {             
             resolve(data);

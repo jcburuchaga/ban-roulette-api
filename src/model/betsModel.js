@@ -1,5 +1,5 @@
 module.exports = (schema, sequelize, type) => {
-    return sequelize.define('user', {
+    return sequelize.define('bets', {
       idx: { type: type.BIGINT, primaryKey: true, autoIncrement: true },
       user_id: { type: type.INTEGER },
       hash_client: { type: type.STRING(500) },
@@ -14,6 +14,6 @@ module.exports = (schema, sequelize, type) => {
     {
       schema: schema,
       timestamps: false,
-      tableName: 'user'
+      tableName: 'bets'
     })
   }
