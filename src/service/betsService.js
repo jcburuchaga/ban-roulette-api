@@ -1,5 +1,5 @@
 const {Bets} = require('../sequelize/sequelize');
-const bananojs = require('bananojs')('http://35.193.75.82:7072');
+const bananojs = require('bananojs')('http://localhost:7072');
 const crypto = require('crypto');
 const random = require('random-hash');
 

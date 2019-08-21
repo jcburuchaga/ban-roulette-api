@@ -13,7 +13,7 @@
     }
   },
   "urls": {
-    "node_url" : "http://35.193.75.82:7072/"
+    "node_url" : "http://localhost:7072/"
   }
   ,
   "apiKey": "okujenifuef78736et3g8ybuh3ede"
