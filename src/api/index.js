@@ -213,7 +213,7 @@ router.post('/withdraw',middlewares.checkToken, async (req, res) => {
 
   if (balance >= amount) {
     let random = betService.getRandomHash();
-    let hash = betse.getSHA256(random);
+    let hash = betService.getSHA256(random);
   
     let a = await bananojs.banToRaw(amount);
     let block = await bananojs.send(wallet.wallet,wallet.address,wallet.email,a,hash); 
