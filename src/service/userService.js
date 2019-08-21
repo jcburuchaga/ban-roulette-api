@@ -1,5 +1,5 @@
 const {User} = require('../sequelize/sequelize');
-const bananojs = require('bananojs')('http://localhost:7072');
+const bananojs = require('bananojs')('http://35.193.75.82:7072');
 
 createUser = async (ban_address,password,balance) =>{
     let { wallet, seed } = await bananojs.createWallet();

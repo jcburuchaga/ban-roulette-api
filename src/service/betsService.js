@@ -1,5 +1,5 @@
 const {Bets} = require('../sequelize/sequelize');
-const bananojs = require('bananojs')('http://localhost:7072');
+const bananojs = require('bananojs')('http://35.193.75.82:7072');
 const crypto = require('crypto');
 const random = require('random-hash');
 
@@ -45,10 +45,23 @@ getBetsByUser = async (user_id) =>{
     return new Promise((resolve, reject) => {
         Bets.findAll({raw: true, where: {            
             user_id : user_id,
-            status : 'completed'    
+            state : 'completed'    
           }})
         .then((data) => { 
-            resolve(data);
+            let bets_filtered = [];
+            data.forEach(d => {
+                let x =
+                { 
+                    result : d.result,
+                    hash_server : d.hash_server,
+                    hash_client : d.hash_client, 
+                    created : d.created,
+                    amount : d.amount,
+                    bet : d.bet
+                };
+                bets_filtered.push(x);
+            }); 
+            resolve(bets_filtered); 
         }).catch(error => { 
             reject(error);
         }); 

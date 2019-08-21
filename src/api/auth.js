@@ -28,7 +28,12 @@ router.post('/signup', async (req, res) => {
 router.post('/signin', async (req, res) => {
   const  email  =  req.body.body.email;
   const  password  =  req.body.body.password; 
+  console.log("",req.body)
   let user = await userService.getUserByEmail(email);
+  if(!user)
+  {
+    res.status(404).send("not registered");
+  }
   if (user.password == password) {
     const  expiresIn  =  24  *  60  *  60;
     const  accessToken  =  jwt.sign({ ban_address:  email }, SECRET_KEY, {
