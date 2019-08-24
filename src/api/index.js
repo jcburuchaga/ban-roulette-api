@@ -105,14 +105,14 @@ router.post('/roll',middlewares.checkToken, async (req, res) => {
   user_bet.forEach(b => {    
     if (b.number == -1 || b.number == -2) {
       if (red_numbers.includes(result)) {
-        if (b.number == -1) {
+        if (b.number == -1 && result != 0) {
           win_amount = win_amount + ((b.count * parseInt(chip_amount))) * 2;
           message = message + `Win ${((b.count * parseInt(chip_amount)))} BAN on RED.`
         }
       }
       else
       {
-        if (b.number == -2) {
+        if (b.number == -2 && result != 0) {
           win_amount = win_amount + ((b.count * parseInt(chip_amount))) * 2;
           message = message + `Win ${((b.count * parseInt(chip_amount)))} BAN on Black.`
         }
