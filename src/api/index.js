@@ -125,7 +125,7 @@ router.post('/roll',middlewares.checkToken, async (req, res) => {
     }    
   });  
 
-  if (win_amount == 0) {
+  if (win_amount == bet_amount) {
     res.json({
       win_amount: 0,
       server_hash: bet.hash_server,
