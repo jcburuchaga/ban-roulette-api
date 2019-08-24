@@ -124,6 +124,16 @@ router.post('/roll',middlewares.checkToken, async (req, res) => {
       }
     }    
   });  
+
+  if (win_amount == 0) {
+    res.json({
+      win_amount: 0,
+      server_hash: bet.hash_server,
+      message: "No wins",
+      result:result
+    });
+    return;
+  }
   if (win_amount >= bet_amount ) {
     //transfer from cashier  
     let amount = win_amount - bet_amount; 
