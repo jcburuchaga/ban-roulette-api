@@ -48,41 +48,22 @@ router.post('/roll',middlewares.checkToken, async (req, res) => {
     }); 
     return;
   }
-  if (!req.body.chip_amount) {
-    res.json({
-      error: 'error: no chip amount'
-    }); 
-    return;
-  }
-  if (isNaN(req.body.chip_amount)) {
-    res.json({
-      error: 'error: chip_amount isNaN'
-    });
-    return;
-  }
-  if (!chips_permited.includes(parseInt(req.body.chip_amount))) {
-    res.json({
-      error: 'error: amount per chip not permited'
-    });
-    return;
-  }
   let user_bet = req.body.user_bet;
-  let chip_amount = parseInt(req.body.chip_amount);
   //check bet integrity
   let integrity_fail = false;
   let message = "";
   let bet_amount = 0;
   user_bet.forEach(b => {
     if (b.number == -1 || b.number == -2) {
-      if (b.count < 3 || b.count > 9) {
+      if (b.count < 1 || b.count > 900) {
         integrity_fail = true;
       }
     }else{
-      if (b.count < 1 || b.count > 5) {
+      if (b.count < 1 || b.count > 500) {
         integrity_fail = true;
       }
     }
-    bet_amount = bet_amount + (b.count * parseInt(chip_amount));
+    bet_amount = bet_amount + (b.count);
   });  
   if (integrity_fail) {
     res.json({
@@ -106,21 +87,21 @@ router.post('/roll',middlewares.checkToken, async (req, res) => {
     if (b.number == -1 || b.number == -2) {
       if (red_numbers.includes(result)) {
         if (b.number == -1 && result != 0) {
-          win_amount = win_amount + ((b.count * parseInt(chip_amount))) * 2;
-          message = message + `Win ${((b.count * parseInt(chip_amount)))} BAN on RED.`
+          win_amount = win_amount + (b.count) * 2;
+          message = message + `Win ${b.count * 2} BAN on RED.`
         }
       }
       else
       {
         if (b.number == -2 && result != 0) {
-          win_amount = win_amount + ((b.count * parseInt(chip_amount))) * 2;
-          message = message + `Win ${((b.count * parseInt(chip_amount)))} BAN on Black.`
+          win_amount = win_amount + (b.count) * 2;
+          message = message + `Win ${(b.count * 2)} BAN on Black.`
         }
       }
     }else{
       if (b.number == result) {
-        win_amount = win_amount + (((b.count * parseInt(chip_amount))*36));
-        message = message + `Win ${((b.count * parseInt(chip_amount))*36)} BAN on ${result}.`
+        win_amount = win_amount + ((b.count * 36));
+        message = message + `Win ${(b.count * 36)} BAN on ${result}.`
       }
     }    
   });  
