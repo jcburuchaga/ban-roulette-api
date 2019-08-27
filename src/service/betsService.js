@@ -45,7 +45,8 @@ getBetsByUser = async (user_id) =>{
     return new Promise((resolve, reject) => {
         Bets.findAll({raw: true, where: {            
             user_id : user_id,
-            state : 'completed'    
+            state : 'completed',
+            created : new Date()
           }})
         .then((data) => { 
             let bets_filtered = [];

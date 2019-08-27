@@ -58,10 +58,22 @@ router.post('/roll',middlewares.checkToken, async (req, res) => {
       if (b.count < 1 || b.count > 900) {
         integrity_fail = true;
       }
-    }else{
-      if (b.count < 1 || b.count > 500) {
+    }else{ 
+      if ([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36].includes(b.number) && (b.count < 1 || b.count > 500)) {
         integrity_fail = true;
       }
+      if ([-12,-22,-32].includes(b.number) && (b.count < 1 || b.count > 700)) {
+        integrity_fail = true;
+      } 
+      if ([-312,-112,-212].includes(b.number) && (b.count < 1 || b.count > 700)) {
+        integrity_fail = true;
+      } 
+      if ([-118,-1936].includes(b.number) && (b.count < 1 || b.count > 900)) {
+        integrity_fail = true;
+      } 
+      if ([-111,-222].includes(b.number) && (b.count < 1 || b.count > 900)) {
+        integrity_fail = true;
+      } 
     }
     bet_amount = bet_amount + (b.count);
   });  
@@ -99,10 +111,50 @@ router.post('/roll',middlewares.checkToken, async (req, res) => {
         }
       }
     }else{
-      if (b.number == result) {
+      if ([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36].includes(b.number) && b.number == result) {
         win_amount = win_amount + ((b.count * 36));
         message = message + `Win ${(b.count * 36)} BAN on ${result}.`
       }
+      if ([-12].includes(b.number) && [1,4,7,10,13,16,19,22,25,28,31,34].includes(result)) {
+        win_amount = win_amount + ((b.count * 3));
+        message = message + `Win ${(b.count * 3)} BAN on First Column.`
+      }
+      if ([-22].includes(b.number) && [2,5,8,11,14,17,20,23,26,29,32,35].includes(result)) {
+        win_amount = win_amount + ((b.count * 3));
+        message = message + `Win ${(b.count * 3)} BAN on Second Column.`
+      }
+      if ([-32].includes(b.number) && [3,6,9,12,15,18,21,24,27,30,33,36].includes(result)) {
+        win_amount = win_amount + ((b.count * 3));
+        message = message + `Win ${(b.count * 3)} BAN on Third Column.`
+      }
+      if ([-312].includes(b.number) && [25,26,27,28,29,30,31,32,33,34,35,36].includes(result)) {
+        win_amount = win_amount + ((b.count * 3));
+        message = message + `Win ${(b.count * 3)} BAN on 3rd 12.`
+      }
+      if ([-212].includes(b.number) && [13,14,15,16,17,18,19,20,21,22,23,24].includes(result)) {
+        win_amount = win_amount + ((b.count * 3));
+        message = message + `Win ${(b.count * 3)} BAN on 2nd 12.`
+      }
+      if ([-112].includes(b.number) && [1,2,3,4,5,6,7,8,9,10,11,12].includes(result)) {
+        win_amount = win_amount + ((b.count * 3));
+        message = message + `Win ${(b.count * 3)} BAN on 1st 12.`
+      }
+      if ([-118].includes(b.number) && [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18].includes(result)) {
+        win_amount = win_amount + ((b.count * 2));
+        message = message + `Win ${(b.count * 2)} BAN on 1-18.`
+      }
+      if ([-1936].includes(b.number) && [19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36].includes(result)) {
+        win_amount = win_amount + ((b.count * 2));
+        message = message + `Win ${(b.count * 2)} BAN on 19-36.`
+      }
+      if ([-111].includes(b.number) && [1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35].includes(result)) {
+        win_amount = win_amount + ((b.count * 2));
+        message = message + `Win ${(b.count * 2)} BAN on Odd.`
+      }
+      if ([-222].includes(b.number) && [2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36].includes(result)) {
+        win_amount = win_amount + ((b.count * 2));
+        message = message + `Win ${(b.count * 2)} BAN on Even.`
+      } 
     }    
   });  
 
